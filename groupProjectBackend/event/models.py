@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from users.models import CustomUser
+
 # Create your models here.
 User = get_user_model()
 
@@ -24,6 +26,7 @@ class Event(BaseModel):
     signup_opens = models.DateTimeField()
     signup_closes = models.DateTimeField()
     location = models.CharField(max_length=100)
+    
 
     def __str__(self):
         return self.name
@@ -62,6 +65,10 @@ class EventModule(BaseModel):
     def __str__(self):
         return f"{self.event}:{self.module}"
 
+    def populate_roles(self):
+        for rec_role in self.module.required_roles.all():
+            self.required_roles.create(role=rec_role)
+
 
 class EventModuleRole(BaseModel):
     event_module = models.ForeignKey(EventModule, models.CASCADE, related_name="required_roles")
@@ -74,3 +81,8 @@ class EventModuleRole(BaseModel):
         related_name="registered_roles",
     )
     gift_back = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.mentor}:{self.role}"
+
+

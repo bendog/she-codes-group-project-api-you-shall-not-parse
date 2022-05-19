@@ -4,7 +4,6 @@ from .models import Event, EventModule, EventModuleRole, Module, Role
 
 # Register your models here.
 
-admin.site.register(Event)
 admin.site.register(Role)
 admin.site.register(Module)
 admin.site.register(EventModule)
@@ -22,3 +21,15 @@ class EventModuleRoleAdmin(admin.ModelAdmin):
         "gift_back",
         ("mentor", admin.EmptyFieldListFilter),
     )
+
+
+class EventModuleInline(admin.TabularInline):
+   model = EventModule
+   fields = ('module', 'start_time', 'end_time')
+#    readonly_fields = ('added_date',)
+   extra = 1
+
+
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
+   inlines = (EventModuleInline,)
