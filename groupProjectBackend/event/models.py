@@ -20,8 +20,9 @@ class BaseModel(models.Model):
 class Event(BaseModel):
     """the event, used to categorise and group for management"""
 
-    name = models.CharField(max_length=64)
+    name = models.SlugField(max_length=64)
     description = models.TextField()
+    image = models.URLField(null=True)
     published = models.BooleanField(default=False)
     signup_opens = models.DateTimeField()
     signup_closes = models.DateTimeField()
@@ -35,7 +36,7 @@ class Event(BaseModel):
 class Role(BaseModel):
     """the roles required for a module"""
 
-    name = models.CharField(max_length=64)
+    name = models.SlugField(max_length=64)
     capable_mentors = models.ManyToManyField(
         User, related_name="capabilities", null=True, blank=True
     )
@@ -47,7 +48,7 @@ class Role(BaseModel):
 class Module(BaseModel):
     """the learning module"""
 
-    name = models.CharField(max_length=64)
+    name = models.SlugField(max_length=64)
     required_roles = models.ManyToManyField(Role, related_name="modules")
 
     def __str__(self):
