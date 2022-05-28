@@ -72,6 +72,7 @@ class EventModule(BaseModel):
 
 
 class EventModuleRole(BaseModel):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_name", default=True)
     event_module = models.ForeignKey(EventModule, models.CASCADE, related_name="required_roles")
     role = models.ForeignKey(Role, models.PROTECT, related_name="event_roles")
     mentor = models.ForeignKey(
@@ -82,6 +83,16 @@ class EventModuleRole(BaseModel):
         related_name="registered_roles",
     )
     gift_back = models.BooleanField(default=False)
+    sign_up = models.BooleanField(default=False)
+    confirmation = models.BooleanField(default=False)
+    send_contract = models.BooleanField(default=False)
+    received_contract = models.BooleanField(default=False)
+    calendar_invites = models.BooleanField(default=False)
+    onboarding = models.BooleanField(default=False)
+    mentoring = models.BooleanField(default=False)
+    invoice_sent = models.BooleanField(default=False)
+    paid = models.BooleanField(default=False)
+
 
     def __str__(self):
         return f"{self.mentor}:{self.role}"

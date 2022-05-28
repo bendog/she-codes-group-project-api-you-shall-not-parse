@@ -18,20 +18,6 @@ class CustomUser(AbstractUser):
 
 
 
-class MentorProcess(models.Model):
-    mentor_name = models.ForeignKey(
-        CustomUser, related_name="process", on_delete=models.CASCADE
-    )
-    sign_up = models.BooleanField(default=False)
-    confirmation = models.BooleanField(default=False)
-    send_contract = models.BooleanField(default=False)
-    received_contract = models.BooleanField(default=False)
-    calendar_invites = models.BooleanField(default=False)
-    onboarding = models.BooleanField(default=False)
-    mentoring = models.BooleanField(default=False)
-    invoice_sent = models.BooleanField(default=False)
-    paid = models.BooleanField(default=False)
-
 
 # @receiver(post_save, sender=MentorProfile)
 # def create_related_process(sender, instance, created, *args, **kwargs):

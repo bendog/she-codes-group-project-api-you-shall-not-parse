@@ -1,5 +1,6 @@
 # from multiprocessing.synchronize import Event
 from django.shortcuts import render
+from django.http import Http404
 from django.http import HttpResponse, JsonResponse
 from rest_framework import status, permissions, generics, exceptions
 from rest_framework.views import APIView
@@ -57,6 +58,29 @@ class EventModuleRoleDetailApi(generics.RetrieveUpdateDestroyAPIView):
     # permission_classes = [permissions.IsSuperuserOrReadOnly]
     queryset = EventModuleRole.objects.filter()
     serializer_class = EventModuleRoleSerializer
+
+
+
+class FilteredEventModuleRole(generics.RetrieveUpdateDestroyAPIView):
+    queryset = EventModuleRole.objects.all()
+    serializer_class = EventModuleRole
+    # permission_classes = [
+    #     permissions.IsAuthenticatedOrReadOnly,
+    #     IsOwnerOrReadOnly
+    # ]
+
+    def get_object(self, event):
+        try:
+            event_module_role = EventModuleRole.objects.select_related("event").get(event_id=event)
+            self.check_object_permissions(self.request, event_module_role)
+            return event
+        except Event.DoesNotExist:
+            raise Http404
+
+
+
+
+
 
 
 

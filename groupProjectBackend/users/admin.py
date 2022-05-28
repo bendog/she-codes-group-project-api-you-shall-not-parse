@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.db import models
+
 
 from .models import CustomUser
 
@@ -14,3 +16,7 @@ class UserAdmin(admin.ModelAdmin):
         
         "location",
     )
+
+    fields = ['username',('first_name','last_name'), ('email', 'contact'), 'image', 'bio', 'location', 'current_position', 'languages']
+
+
