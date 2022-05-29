@@ -21,7 +21,6 @@ class EventModuleRoleAdmin(admin.ModelAdmin):
     list_filter = (
         "gift_back",
         ("mentor", admin.EmptyFieldListFilter),
-        "event",
     )
 
     fieldsets = (
