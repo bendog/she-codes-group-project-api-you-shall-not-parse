@@ -15,7 +15,6 @@ urlpatterns = [
     path('filter_event_module_roles/<int:event_module_pk>/', views.FilteredEventModuleRole.as_view()),
     path('filter_event_modules/<int:event_pk>/', views.FilteredEventModule.as_view()),
 
-    path('filter_test/<int:event_pk>/', views.FilteredTest.as_view()),
 
 
 

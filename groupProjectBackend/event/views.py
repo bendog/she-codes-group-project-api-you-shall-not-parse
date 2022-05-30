@@ -47,7 +47,7 @@ class EventModuleList(generics.ListCreateAPIView):
     serializer_class = EventModuleSerializer
 
 class EventModuleRoleList(generics.ListCreateAPIView):
-    #get all eventmodules
+    #get all eventmodulesroles
 
     queryset = EventModuleRole.objects.all()
     serializer_class = EventModuleRoleSerializer
@@ -55,12 +55,12 @@ class EventModuleRoleList(generics.ListCreateAPIView):
 
 class EventModuleRoleDetailApi(generics.RetrieveUpdateDestroyAPIView):
     #get event by id
-    # permission_classes = [permissions.IsSuperuserOrReadOnly]
     queryset = EventModuleRole.objects.filter()
     serializer_class = EventModuleRoleSerializer
 
 
 
+#### WORKING
 class FilteredEventModuleRole(generics.RetrieveUpdateDestroyAPIView):
     queryset = EventModuleRole.objects.filter()
     serializer_class = EventModuleRoleSerializer
@@ -88,16 +88,17 @@ class FilteredEventModule(generics.RetrieveUpdateDestroyAPIView):
 
 
 
+
 #this is a view test to get from event directly to eventmodulerole
-class FilteredTest(generics.RetrieveUpdateDestroyAPIView):
-    queryset = EventModuleRole.objects.filter()
-    serializer_class = EventModuleRoleSerializer
+# class FilteredTest(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = EventModuleRole.objects.filter()
+#     serializer_class = EventModuleRoleSerializer
 
 
-    def get(self, request, event_pk):
-        event_module_roles = EventModuleRole.objects.filter(event = event_pk, mentor__isnull=True)
-        serializer = EventModuleRoleSerializer(event_module_roles, many=True)
-        return Response(serializer.data)
+#     def get(self, request, event_pk):
+#         event_module_roles = EventModuleRole.objects.filter(event = event_pk, mentor__isnull=True)
+#         serializer = EventModuleRoleSerializer(event_module_roles, many=True)
+#         return Response(serializer.data)
 
 
 

@@ -8,6 +8,7 @@ from .models import Event, EventModule, EventModuleRole, Module, Role
 admin.site.register(Role)
 admin.site.register(Module)
 admin.site.register(EventModule)
+# admin.site.register(EventModuleRole)
 
 
 @admin.register(EventModuleRole)
@@ -22,10 +23,11 @@ class EventModuleRoleAdmin(admin.ModelAdmin):
         "gift_back",
         ("mentor", admin.EmptyFieldListFilter),
     )
-
-    fieldsets = (
-        ("Event", {
-            "fields": ("event_module", "role", "mentor", "gift_back")
+    
+    
+    fieldsets =(
+        ("Event",{
+            "fields": ("event","event_module", "role", "mentor", "gift_back")
         }),
         ("Mentor Onboarding Process", {
             "fields": ("sign_up", "confirmation", "send_contract", "received_contract", "calendar_invites", "onboarding", "mentoring", "invoice_sent", "paid")
