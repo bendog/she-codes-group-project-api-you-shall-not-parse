@@ -89,17 +89,6 @@ class FilteredEventModule(generics.RetrieveUpdateDestroyAPIView):
 
 
 
-#this is a view test to get from event directly to eventmodulerole
-# class FilteredTest(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = EventModuleRole.objects.filter()
-#     serializer_class = EventModuleRoleSerializer
-
-
-#     def get(self, request, event_pk):
-#         event_module_roles = EventModuleRole.objects.filter(event = event_pk, mentor__isnull=True)
-#         serializer = EventModuleRoleSerializer(event_module_roles, many=True)
-#         return Response(serializer.data)
-
 
 
 
