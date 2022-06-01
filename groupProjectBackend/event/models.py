@@ -72,7 +72,7 @@ class EventModule(BaseModel):
 
 
 class EventModuleRole(BaseModel):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_name", default=True)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_name")
     event_module = models.ForeignKey(EventModule, models.CASCADE, related_name="required_roles")
     role = models.ForeignKey(Role, models.PROTECT, related_name="event_roles")
     mentor = models.ForeignKey(

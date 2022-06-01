@@ -47,7 +47,7 @@ class EventModuleList(generics.ListCreateAPIView):
     serializer_class = EventModuleSerializer
 
 class EventModuleRoleList(generics.ListCreateAPIView):
-    #get all eventmodules
+    #get all eventmodulesroles
 
     queryset = EventModuleRole.objects.all()
     serializer_class = EventModuleRoleSerializer
@@ -55,28 +55,36 @@ class EventModuleRoleList(generics.ListCreateAPIView):
 
 class EventModuleRoleDetailApi(generics.RetrieveUpdateDestroyAPIView):
     #get event by id
-    # permission_classes = [permissions.IsSuperuserOrReadOnly]
     queryset = EventModuleRole.objects.filter()
     serializer_class = EventModuleRoleSerializer
 
 
 
+#### WORKING
 class FilteredEventModuleRole(generics.RetrieveUpdateDestroyAPIView):
-    queryset = EventModuleRole.objects.all()
-    serializer_class = EventModuleRole
-    # permission_classes = [
-    #     permissions.IsAuthenticatedOrReadOnly,
-    #     IsOwnerOrReadOnly
-    # ]
+    queryset = EventModuleRole.objects.filter()
+    serializer_class = EventModuleRoleSerializer
 
-    def get_object(self, event):
-        try:
-            event_module_role = EventModuleRole.objects.select_related("event").get(event_id=event)
-            self.check_object_permissions(self.request, event_module_role)
-            return event
-        except Event.DoesNotExist:
-            raise Http404
 
+
+    def get(self, request, event_module_pk):
+        event_module_roles = EventModuleRole.objects.filter(event_module = event_module_pk, mentor__isnull=True)
+        serializer = EventModuleRoleSerializer(event_module_roles, many=True)
+        return Response(serializer.data)
+
+
+
+
+#########   WORKING
+class FilteredEventModule(generics.RetrieveUpdateDestroyAPIView):
+    queryset = EventModule.objects.all()
+    serializer_class = EventModuleSerializer
+
+
+    def get(self, request, event_pk):
+        event_modules = EventModule.objects.filter(event = event_pk)
+        serializer = EventModuleSerializer(event_modules, many=True)
+        return Response(serializer.data)
 
 
 

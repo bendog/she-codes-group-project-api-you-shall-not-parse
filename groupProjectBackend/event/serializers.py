@@ -9,7 +9,7 @@ class EventSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Event
-        fields = ('name', 'description', 'image', 'published', 'signup_opens', 'signup_closes', 'location')
+        fields = ('id', 'name', 'description', 'image', 'published', 'signup_opens', 'signup_closes', 'location')
 
 
 class RoleSerializer(serializers.ModelSerializer):
@@ -27,7 +27,7 @@ class ModuleSerializer(serializers.ModelSerializer):
 
 
 class EventModuleSerializer(serializers.Serializer):
-
+    id = serializers.ReadOnlyField()
     event = serializers.SlugRelatedField(
         slug_field='name',
         queryset=Event.objects.all()
@@ -44,10 +44,60 @@ class EventModuleSerializer(serializers.Serializer):
         return EventModule.objects.create(**validated_data)
     
 
+#ORIGINAL SERIALIZER - NOT WORKING
+# class EventModuleRoleSerializer (serializers.ModelSerializer):
+#     id = serializers.ReadOnlyField()
+#     event = serializers.ReadOnlyField(source="event.name")
+#     event_module = serializers.ReadOnlyField(source="module.name")
+#     # event_module = serializers.SlugRelatedField(
+#     #     slug_field='module',
+#     #     queryset=EventModule.objects.all()
+#     #     )
+
+#     role = serializers.SlugRelatedField(
+#         slug_field='name',
+#         queryset=Role.objects.all()
+#     )
+#     mentor = serializers.SlugRelatedField(
+#         slug_field='username',
+#         queryset=CustomUser.objects.all()
+#     )
+
+#     class Meta:
+#         model = EventModuleRole
+#         fields = ('id', 'event','event_module', 'role', 'mentor', 'gift_back')
+
+
+#####ORIGINAL
+
+# class EventModuleRoleSerializer (serializers.ModelSerializer):
+#     # id = serializers.ReadOnlyField()
+#     # event = serializers.ReadOnlyField(source="event.name")
+#     # event_module = serializers.ReadOnlyField(source="module.name")
+#     # event_module = serializers.SlugRelatedField(
+#     #     slug_field='module',
+#     #     queryset=EventModule.objects.all()
+#     #     )
+
+#     role = serializers.SlugRelatedField(
+#         slug_field='name',
+#         queryset=Role.objects.all()
+#     )
+#     mentor = serializers.SlugRelatedField(
+#         slug_field='username',
+#         queryset=CustomUser.objects.all()
+#     )
+
+#     class Meta:
+#         model = EventModuleRole
+#         fields = ('id','event_module', 'role', 'mentor', 'gift_back')
+
 
 class EventModuleRoleSerializer (serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     event = serializers.ReadOnlyField(source="event.name")
-    event_module = serializers.ReadOnlyField(source="event_module.name")
+    event_module_name = serializers.ReadOnlyField(source="event_module.module.name")
+
     role = serializers.SlugRelatedField(
         slug_field='name',
         queryset=Role.objects.all()
@@ -59,4 +109,4 @@ class EventModuleRoleSerializer (serializers.ModelSerializer):
 
     class Meta:
         model = EventModuleRole
-        fields = ('event','event_module', 'role', 'mentor', 'gift_back')
+        fields = ('id', 'event', 'event_module_name', 'role', 'mentor', 'gift_back')
