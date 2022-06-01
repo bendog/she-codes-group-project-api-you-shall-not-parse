@@ -87,7 +87,15 @@ class FilteredEventModule(generics.RetrieveUpdateDestroyAPIView):
         return Response(serializer.data)
 
 
+class FilteredEventModuleRoleUser(generics.RetrieveUpdateDestroyAPIView):
+    queryset = EventModuleRole.objects.filter()
+    serializer_class = EventModuleRoleSerializer
 
+
+    def get(self, request, mentor_pk):
+        event_module_roles = EventModuleRole.objects.filter(mentor = mentor_pk)
+        serializer = EventModuleRoleSerializer(event_module_roles, many=True)
+        return Response(serializer.data)
 
 
 
