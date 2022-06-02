@@ -20,8 +20,10 @@ class EventModuleRoleAdmin(admin.ModelAdmin):
         "gift_back",
     )
     list_filter = (
+        "event",
         "gift_back",
         ("mentor", admin.EmptyFieldListFilter),
+        
     )
     
     
