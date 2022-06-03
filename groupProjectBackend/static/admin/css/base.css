@@ -110,6 +110,7 @@ a:link, a:visited {
     color: var(--link-fg);
     text-decoration: none;
     transition: color 0.15s, background 0.15s;
+    font-size: 14px;
 }
 
 a:focus, a:hover {
@@ -151,7 +152,7 @@ h1,h2,h3,h4,h5 {
 h1 {
     margin: 0 0 20px;
     font-weight: 300;
-    font-size: 20px;
+    font-size: 30px;
     color: var(--body-quiet-color);
 }
 
@@ -847,7 +848,7 @@ table#change-history tbody th {
 }
 
 .dashboard #content {
-    width: 600px;
+    width: 900px;
 }
 
 #content-main {
@@ -859,7 +860,7 @@ table#change-history tbody th {
     float: right;
     width: 260px;
     position: relative;
-    margin-right: -300px;
+    margin-right: -400px;
 }
 
 #footer {
@@ -881,7 +882,7 @@ table#change-history tbody th {
     float: left;
     margin-right: 0;
     margin-left: -300px;
-}
+} 
 
 .colSM #content-main {
     float: right;
@@ -921,12 +922,13 @@ table#change-history tbody th {
     padding: 0;
     margin: 0 20px 0 0;
     font-weight: 300;
-    font-size: 24px;
+    font-size: 50px;
     color: var(--accent);
 }
 
 #branding h1, #branding h1 a:link, #branding h1 a:visited {
     color: var(--accent);
+    font-size: 25px;
 }
 
 #branding h2 {

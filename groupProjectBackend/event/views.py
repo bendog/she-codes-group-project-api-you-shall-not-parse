@@ -59,22 +59,6 @@ class EventModuleRoleDetailApi(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EventModuleRoleSerializer
 
 
-
-#### WORKING
-class FilteredEventModuleRole(generics.RetrieveUpdateDestroyAPIView):
-    queryset = EventModuleRole.objects.filter()
-    serializer_class = EventModuleRoleSerializer
-
-
-
-    def get(self, request, event_module_pk):
-        event_module_roles = EventModuleRole.objects.filter(event_module = event_module_pk, mentor__isnull=True)
-        serializer = EventModuleRoleSerializer(event_module_roles, many=True)
-        return Response(serializer.data)
-
-
-
-
 #########   WORKING
 class FilteredEventModule(generics.RetrieveUpdateDestroyAPIView):
     queryset = EventModule.objects.all()
@@ -85,6 +69,70 @@ class FilteredEventModule(generics.RetrieveUpdateDestroyAPIView):
         event_modules = EventModule.objects.filter(event = event_pk)
         serializer = EventModuleSerializer(event_modules, many=True)
         return Response(serializer.data)
+
+
+class FilteredEventModuleRoleUser(generics.RetrieveUpdateDestroyAPIView):
+    queryset = EventModuleRole.objects.filter()
+    serializer_class = EventModuleRoleSerializer
+
+
+    def get(self, request, mentor_pk):
+        event_module_roles = EventModuleRole.objects.filter(mentor = mentor_pk)
+        serializer = EventModuleRoleSerializer(event_module_roles, many=True)
+        return Response(serializer.data)
+
+
+
+
+#### WORKING
+class FilteredEventModuleRole(APIView):
+    queryset = EventModuleRole.objects.all()
+    serializer_class = EventModuleRoleSerializer
+
+
+    def get(self, request, event_module_pk):
+        event_module_roles = EventModuleRole.objects.filter(event_module = event_module_pk, mentor__isnull=True)
+        serializer = EventModuleRoleSerializer(event_module_roles, many=True)
+        return Response(serializer.data)
+
+
+
+class ChooseEventModuleRole(generics.RetrieveUpdateDestroyAPIView):
+    queryset = EventModuleRole.objects.all()
+    serializer_class = EventModuleRoleSerializer
+
+    def get_object(self, event_module_pk, role_pk):
+        try:
+            return EventModuleRole.objects.filter(event_module=event_module_pk).get(role=role_pk)
+        except EventModuleRole.DoesNotExist:
+            raise Http404
+
+    def get(self, request, event_module_pk, role_pk):
+        event_module_roles = EventModuleRole.objects.filter(event_module = event_module_pk, mentor__isnull=True)
+        serializer = EventModuleRoleSerializer(event_module_roles, many=True)
+        return Response(serializer.data)
+
+
+    def put(self, request, event_module_pk, role_pk):
+        print(event_module_pk, role_pk)
+        event_module_roles = self.get_object(event_module_pk, role_pk)
+        data = request.data
+        serializer = EventModuleRoleSerializer(
+            instance=event_module_roles,
+            data=data,
+            partial=True
+        )
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED
+                )
+        return Response(
+                serializer.errors,
+        )
+            
+
 
 
 
