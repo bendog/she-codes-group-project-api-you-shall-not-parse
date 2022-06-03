@@ -12,12 +12,10 @@ urlpatterns = [
     path('event_modules/<int:pk>/populate', views.event_module_populate),
     path('event_module_roles/', views.EventModuleRoleList.as_view()),
     path('event_module_roles/<int:pk>/', views.EventModuleRoleDetailApi.as_view()),
-    path('filter_event_module_roles/<int:event_module_pk>/', views.FilteredEventModuleRole.as_view()),
     path('filter_event_modules/<int:event_pk>/', views.FilteredEventModule.as_view()),
+    path('filter_event_module_roles/<int:event_module_pk>/', views.FilteredEventModuleRole.as_view()),
+    path('filter_event_module_roles/<int:event_module_pk>/<int:role_pk>/', views.ChooseEventModuleRole.as_view()),
     path('filter_event_module_roles_user/<int:mentor_pk>/', views.FilteredEventModuleRoleUser.as_view()),
-
-
-
 
 ]
 
