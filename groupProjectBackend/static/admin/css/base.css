@@ -107,7 +107,7 @@ body {
 /* LINKS */
 
 a:link, a:visited {
-    color: var(--link-fg);
+    color: black;
     text-decoration: none;
     transition: color 0.15s, background 0.15s;
     font-size: 14px;
@@ -592,8 +592,8 @@ input[type=button][disabled].default {
     font-weight: 400;
     font-size: 13px;
     text-align: left;
-    background: var(--primary);
-    color: var(--header-link-color);
+    background: rgb(248, 160, 28);
+    color: black;
 }
 
 .module caption,
