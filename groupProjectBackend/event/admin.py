@@ -20,13 +20,13 @@ class EventModuleRoleAdmin(admin.ModelAdmin):
         "gift_back",
     )
     list_filter = (
-        "event",
+        "event_module__event__name",
         "gift_back",
         ("mentor", admin.EmptyFieldListFilter),
-        
+
     )
-    
-    
+
+
     fieldsets =(
         ("Event",{
             "fields": ("event","event_module", "role", "mentor", "gift_back")
@@ -35,7 +35,7 @@ class EventModuleRoleAdmin(admin.ModelAdmin):
             "fields": ("sign_up", "confirmation", "send_contract", "received_contract", "calendar_invites", "onboarding", "mentoring", "invoice_sent", "paid")
         }),
     )
-    
+
 
 
 class EventModuleInline(admin.TabularInline):
